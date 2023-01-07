@@ -4,7 +4,8 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"fmt"
+	"clean-arc/presenter/router"
+	"net/http"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -16,7 +17,8 @@ var rootCmd = &cobra.Command{
 	Short: "A brief description of your application",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("とりあえず動きますよ")
+		r := router.Get()
+		http.ListenAndServe(":3000", r)
 	},
 }
 
