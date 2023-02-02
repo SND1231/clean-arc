@@ -1,0 +1,10 @@
+@startuml NiziProject
+actor 作業者
+left to right direction
+rectangle {
+   作業者 -- (タスクを登録する)
+   作業者 -- (タスクを延期する)
+   作業者 -- (タスクを完了する)
+   作業者 -- (タスクの担当者を設定する)
+}
+@enduml

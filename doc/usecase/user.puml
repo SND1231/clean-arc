@@ -1,0 +1,8 @@
+@startuml NiziProject
+actor 作業者
+left to right direction
+rectangle {
+   作業者 -- (作業者の登録)
+   作業者 -- (ログイン)
+}
+@enduml
