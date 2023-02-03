@@ -1,0 +1,9 @@
+@startuml NiziProject
+actor 作業者
+left to right direction
+rectangle {
+   作業者 -- (作業者の登録)
+   作業者 -- (ログイン)
+   作業者 -- (一時的に停止の作業者の復帰)
+}
+@enduml

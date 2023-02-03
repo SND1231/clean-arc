@@ -1,20 +1,17 @@
 @startuml NiziProject
 skinparam PackageStyle rectangle
 
-package ユーザー集約 {
-    object ユーザー {
-        ユーザーID
-        ユーザー名
-        ユーザーステータス
-    }
-    object プロファイル{
-        メールアドレス
-        電話番号
+package 作業者集約 {
+    object 作業者 {
+        作業者ID
+        名前
+        作業者ステータス
+        作成日
     }
 }
 
-note right of ユーザー
-    * ユーザーステータスは「活性」「非活性」がある
+note left of 作業者
+    * 作業者ステータスは「活性」「非活性」がある
 end note
 
 package タスク集約 {
@@ -29,10 +26,9 @@ package タスク集約 {
 }
 
 note right of タスク
-    * タスクステータスは「未完了/作業中/完了」の3種類で「未完了」から始まる
+    * タスクステータスは「未実施/作業中/完了」の3種類で「未完了」から始まる
     * 期日は1日ずつ、3回まで延期できる
     * 「活性」ステータスのユーザーのみ担当に設定できる
 end note
 
-タスク "0...n" -down-> "0...1" ユーザー
-プロファイル  -right-*  ユーザー
+タスク "0...n" -right-> "0...1" 作業者

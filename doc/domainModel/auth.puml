@@ -1,0 +1,34 @@
+@startuml NiziProject
+skinparam PackageStyle rectangle
+
+package 作業者集約 {
+    object 作業者 {
+        作業者ID
+        作業者名
+        作業者ステータス
+    }
+}
+
+note left of 作業者
+    * 作業者ステータスは「活性」「非活性」がある
+end note
+
+package 作業者認証情報集約 {
+    object 作業者認証情報 {
+        作業者ID
+        パスワード
+        作成日
+        更新日
+        パスワード変更回数
+        ステータス
+        認証失敗回数
+    }
+}
+
+note right of 作業者認証情報
+    * 認証3回以上失敗した場合、作業者を一時的に停止
+    * パスワードは一日3回まで変更可能
+    * ステータスは「利用可能/一時停止/削除」の3種類で「利用可能」から始まる
+end note
+
+作業者認証情報 "1" -right-> "1" 作業者
