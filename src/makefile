@@ -1,3 +1,3 @@
 .PHONY: boiler
 boiler:
-	sqlboiler mysql -o infrastructure/sqlboiler
+	sqlboiler mysql -o infrastructure/models
