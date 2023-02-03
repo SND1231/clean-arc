@@ -3,8 +3,10 @@
 
 package models
 
-import "testing"
-
-func TestUpsert(t *testing.T) {
-	t.Run("Users", testUsersUpsert)
+var TableNames = struct {
+	Auth    string
+	Workers string
+}{
+	Auth:    "auth",
+	Workers: "workers",
 }

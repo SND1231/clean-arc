@@ -12,61 +12,78 @@ import "testing"
 // It does NOT run each operation group in parallel.
 // Separating the tests thusly grants avoidance of Postgres deadlocks.
 func TestParent(t *testing.T) {
-	t.Run("Users", testUsers)
+	t.Run("Auths", testAuths)
+	t.Run("Workers", testWorkers)
 }
 
 func TestDelete(t *testing.T) {
-	t.Run("Users", testUsersDelete)
+	t.Run("Auths", testAuthsDelete)
+	t.Run("Workers", testWorkersDelete)
 }
 
 func TestQueryDeleteAll(t *testing.T) {
-	t.Run("Users", testUsersQueryDeleteAll)
+	t.Run("Auths", testAuthsQueryDeleteAll)
+	t.Run("Workers", testWorkersQueryDeleteAll)
 }
 
 func TestSliceDeleteAll(t *testing.T) {
-	t.Run("Users", testUsersSliceDeleteAll)
+	t.Run("Auths", testAuthsSliceDeleteAll)
+	t.Run("Workers", testWorkersSliceDeleteAll)
 }
 
 func TestExists(t *testing.T) {
-	t.Run("Users", testUsersExists)
+	t.Run("Auths", testAuthsExists)
+	t.Run("Workers", testWorkersExists)
 }
 
 func TestFind(t *testing.T) {
-	t.Run("Users", testUsersFind)
+	t.Run("Auths", testAuthsFind)
+	t.Run("Workers", testWorkersFind)
 }
 
 func TestBind(t *testing.T) {
-	t.Run("Users", testUsersBind)
+	t.Run("Auths", testAuthsBind)
+	t.Run("Workers", testWorkersBind)
 }
 
 func TestOne(t *testing.T) {
-	t.Run("Users", testUsersOne)
+	t.Run("Auths", testAuthsOne)
+	t.Run("Workers", testWorkersOne)
 }
 
 func TestAll(t *testing.T) {
-	t.Run("Users", testUsersAll)
+	t.Run("Auths", testAuthsAll)
+	t.Run("Workers", testWorkersAll)
 }
 
 func TestCount(t *testing.T) {
-	t.Run("Users", testUsersCount)
+	t.Run("Auths", testAuthsCount)
+	t.Run("Workers", testWorkersCount)
 }
 
 func TestHooks(t *testing.T) {
-	t.Run("Users", testUsersHooks)
+	t.Run("Auths", testAuthsHooks)
+	t.Run("Workers", testWorkersHooks)
 }
 
 func TestInsert(t *testing.T) {
-	t.Run("Users", testUsersInsert)
-	t.Run("Users", testUsersInsertWhitelist)
+	t.Run("Auths", testAuthsInsert)
+	t.Run("Auths", testAuthsInsertWhitelist)
+	t.Run("Workers", testWorkersInsert)
+	t.Run("Workers", testWorkersInsertWhitelist)
 }
 
 // TestToOne tests cannot be run in parallel
 // or deadlocks can occur.
-func TestToOne(t *testing.T) {}
+func TestToOne(t *testing.T) {
+	t.Run("AuthToWorkerUsingWorker", testAuthToOneWorkerUsingWorker)
+}
 
 // TestOneToOne tests cannot be run in parallel
 // or deadlocks can occur.
-func TestOneToOne(t *testing.T) {}
+func TestOneToOne(t *testing.T) {
+	t.Run("WorkerToAuthUsingAuth", testWorkerOneToOneAuthUsingAuth)
+}
 
 // TestToMany tests cannot be run in parallel
 // or deadlocks can occur.
@@ -74,7 +91,9 @@ func TestToMany(t *testing.T) {}
 
 // TestToOneSet tests cannot be run in parallel
 // or deadlocks can occur.
-func TestToOneSet(t *testing.T) {}
+func TestToOneSet(t *testing.T) {
+	t.Run("AuthToWorkerUsingAuth", testAuthToOneSetOpWorkerUsingWorker)
+}
 
 // TestToOneRemove tests cannot be run in parallel
 // or deadlocks can occur.
@@ -82,7 +101,9 @@ func TestToOneRemove(t *testing.T) {}
 
 // TestOneToOneSet tests cannot be run in parallel
 // or deadlocks can occur.
-func TestOneToOneSet(t *testing.T) {}
+func TestOneToOneSet(t *testing.T) {
+	t.Run("WorkerToAuthUsingAuth", testWorkerOneToOneSetOpAuthUsingAuth)
+}
 
 // TestOneToOneRemove tests cannot be run in parallel
 // or deadlocks can occur.
@@ -101,21 +122,26 @@ func TestToManySet(t *testing.T) {}
 func TestToManyRemove(t *testing.T) {}
 
 func TestReload(t *testing.T) {
-	t.Run("Users", testUsersReload)
+	t.Run("Auths", testAuthsReload)
+	t.Run("Workers", testWorkersReload)
 }
 
 func TestReloadAll(t *testing.T) {
-	t.Run("Users", testUsersReloadAll)
+	t.Run("Auths", testAuthsReloadAll)
+	t.Run("Workers", testWorkersReloadAll)
 }
 
 func TestSelect(t *testing.T) {
-	t.Run("Users", testUsersSelect)
+	t.Run("Auths", testAuthsSelect)
+	t.Run("Workers", testWorkersSelect)
 }
 
 func TestUpdate(t *testing.T) {
-	t.Run("Users", testUsersUpdate)
+	t.Run("Auths", testAuthsUpdate)
+	t.Run("Workers", testWorkersUpdate)
 }
 
 func TestSliceUpdateAll(t *testing.T) {
-	t.Run("Users", testUsersSliceUpdateAll)
+	t.Run("Auths", testAuthsSliceUpdateAll)
+	t.Run("Workers", testWorkersSliceUpdateAll)
 }

@@ -4,7 +4,8 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"clean-arc/presenter/router"
+	"ddd/infrastructure/setting"
+	"ddd/presenter/router"
 	"net/http"
 	"os"
 
@@ -17,7 +18,17 @@ var rootCmd = &cobra.Command{
 	Short: "A brief description of your application",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		r := router.Get()
+		settings := setting.Setting{
+			DB: setting.DB{
+				Type:     "mysql",
+				Host:     "mysql",
+				Port:     3306,
+				User:     "root",
+				Password: "test",
+				Name:     "test",
+			},
+		}
+		r := router.Get(settings)
 		http.ListenAndServe(":3000", r)
 	},
 }
@@ -41,4 +52,6 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+
+	// ここでdbの設定を書く
 }

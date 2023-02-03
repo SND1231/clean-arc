@@ -1,15 +1,18 @@
 package router
 
 import (
-	"clean-arc/presenter/handler"
+	"ddd/infrastructure/setting"
+	"ddd/presenter/handler"
 
 	"github.com/go-chi/chi"
 )
 
-func Get() *chi.Mux {
+func Get(settings setting.Setting) *chi.Mux {
 	r := chi.NewRouter()
-	r.Route("/users", func(r chi.Router) {
-		r.Get("/", handler.GetUsers)
+
+	auth := handler.NewAuthHandler(settings)
+	r.Route("/auth", func(r chi.Router) {
+		r.Post("/login", auth.Login)
 	})
 	return r
 }
