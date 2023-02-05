@@ -8,6 +8,7 @@ import (
 	"ddd/presenter/router"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -27,6 +28,10 @@ var rootCmd = &cobra.Command{
 				Password: "test",
 				Name:     "test",
 			},
+		}
+		_, err := time.LoadLocation("Asia/Tokyo")
+		if err != nil {
+			panic(err)
 		}
 		r := router.Get(settings)
 		http.ListenAndServe(":3000", r)

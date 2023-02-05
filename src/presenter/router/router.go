@@ -13,6 +13,7 @@ func Get(settings setting.Setting) *chi.Mux {
 	auth := handler.NewAuthHandler(settings)
 	r.Route("/auth", func(r chi.Router) {
 		r.Post("/login", auth.Login)
+		r.Post("/add", auth.Add)
 	})
 	return r
 }
