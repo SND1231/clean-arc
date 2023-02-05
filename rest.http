@@ -2,6 +2,15 @@ POST http://localhost:3000/auth/login
 content-type: application/json
 
 {
-    "id": "test",
+    "id": "tes1",
     "password": "aaa"
+}
+
+POST http://localhost:3000/auth/add
+content-type: application/json
+
+{
+    "id": "tes1",
+    "password": "aaa",
+    "name": "taro"
 }
