@@ -1,6 +1,6 @@
 .PHONY: up
 up:
-	docker-compose up -d --remove-orphans
+	docker-compose up -d
 
 .PHONY: stop
 stop:
