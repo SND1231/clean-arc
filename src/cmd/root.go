@@ -5,10 +5,12 @@ package cmd
 
 import (
 	"ddd/infrastructure/setting"
+	"ddd/lib"
 	"ddd/presenter/router"
+	"fmt"
 	"net/http"
 	"os"
-	"time"
+	"sync"
 
 	"github.com/spf13/cobra"
 )
@@ -29,12 +31,18 @@ var rootCmd = &cobra.Command{
 				Name:     "test",
 			},
 		}
-		_, err := time.LoadLocation("Asia/Tokyo")
-		if err != nil {
-			panic(err)
-		}
 		r := router.Get(settings)
-		http.ListenAndServe(":3000", r)
+
+		var wg sync.WaitGroup
+		wg.Add(1)
+
+		go func() {
+			defer wg.Done()
+			http.ListenAndServe(":3000", r)
+		}()
+		lib.WaitSignal()
+		wg.Wait()
+		fmt.Println("Graceful Shutdown...")
 	},
 }
 
