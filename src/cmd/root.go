@@ -6,7 +6,7 @@ package cmd
 import (
 	"ddd/infrastructure/setting"
 	"ddd/lib"
-	"ddd/presenter/router"
+	"ddd/router"
 	"fmt"
 	"net/http"
 	"os"
@@ -38,8 +38,9 @@ var rootCmd = &cobra.Command{
 
 		go func() {
 			defer wg.Done()
-			http.ListenAndServe(":3000", r)
+			http.ListenAndServe(":3020", r)
 		}()
+		fmt.Println("Start")
 		lib.WaitSignal()
 		wg.Wait()
 		fmt.Println("Graceful Shutdown...")

@@ -2,7 +2,7 @@ package router
 
 import (
 	"ddd/infrastructure/setting"
-	"ddd/presenter/handler"
+	worker "ddd/services/worker/presenter"
 
 	"github.com/go-chi/chi"
 )
@@ -10,10 +10,10 @@ import (
 func Get(settings setting.Setting) *chi.Mux {
 	r := chi.NewRouter()
 
-	auth := handler.NewAuthHandler(settings)
+	workerHandler := worker.NewAuthHandler(settings)
 	r.Route("/auth", func(r chi.Router) {
-		r.Post("/login", auth.Login)
-		r.Post("/add", auth.Add)
+		r.Post("/login", workerHandler.Login)
+		r.Post("/add", workerHandler.Add)
 	})
 	return r
 }

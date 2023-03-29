@@ -8,6 +8,6 @@ import (
 
 func WaitSignal() {
 	sigChan := make(chan os.Signal, 1)
-	signal.Notify(sigChan, syscall.SIGTERM, os.Interrupt)
+	signal.Notify(sigChan, syscall.SIGTERM, syscall.SIGINT, os.Interrupt)
 	<-sigChan
 }
