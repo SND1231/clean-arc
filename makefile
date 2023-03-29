@@ -5,3 +5,7 @@ up:
 .PHONY: stop
 stop:
 	docker-compose stop
+
+.PHONY: down
+down:
+	docker-compose down

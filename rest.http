@@ -1,4 +1,4 @@
-POST http://localhost:3000/auth/login
+POST http://localhost:3020/auth/login
 content-type: application/json
 
 {
@@ -6,11 +6,11 @@ content-type: application/json
     "password": "aaa"
 }
 
-POST http://localhost:3000/auth/add
+POST http://localhost:3020/auth/add
 content-type: application/json
 
 {
-    "id": "tes1",
+    "email": "test2.gmail.com",
     "password": "aaa",
     "name": "taro"
 }
