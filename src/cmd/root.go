@@ -6,13 +6,12 @@ package cmd
 import (
 	"context"
 	"ddd/infrastructure/setting"
+	"ddd/lib"
 	"ddd/router"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
-	"os/signal"
-	"syscall"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -42,16 +41,14 @@ var rootCmd = &cobra.Command{
 		}
 		go srv.ListenAndServe()
 
-		ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGTERM, os.Interrupt, os.Kill)
-		defer stop()
-		<-ctx.Done()
+		lib.WaitSignal()
 
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
 
 		err := srv.Shutdown(ctx)
 		if err != nil {
-			log.Fatal("シャットダウンエラー")
+			log.Fatal("shutdown error")
 			return
 		}
 		fmt.Println("Graceful Shutdown...")
