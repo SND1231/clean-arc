@@ -128,7 +128,6 @@ func (h *AuthHandler) Add(w http.ResponseWriter, r *http.Request) {
 
 	workerUsecase := usecase.NewWorkerUsecase(&workerRepository, &workerAuthRepository)
 	response, err = workerUsecase.Add(request)
-	log.Println("ここまではきてる?")
 	if err != nil {
 		log.Println(err)
 	}
