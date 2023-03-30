@@ -4,13 +4,16 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"context"
 	"ddd/infrastructure/setting"
-	"ddd/lib"
 	"ddd/router"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
-	"sync"
+	"os/signal"
+	"syscall"
+	"time"
 
 	"github.com/spf13/cobra"
 )
@@ -33,16 +36,24 @@ var rootCmd = &cobra.Command{
 		}
 		r := router.Get(settings)
 
-		var wg sync.WaitGroup
-		wg.Add(1)
+		srv := &http.Server{
+			Addr:    ":3020",
+			Handler: r,
+		}
+		go srv.ListenAndServe()
 
-		go func() {
-			defer wg.Done()
-			http.ListenAndServe(":3020", r)
-		}()
-		fmt.Println("Start")
-		lib.WaitSignal()
-		wg.Wait()
+		ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGTERM, os.Interrupt, os.Kill)
+		defer stop()
+
+		<-ctx.Done()
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+
+		err := srv.Shutdown(ctx)
+		if err != nil {
+			log.Fatal("シャットダウンエラー")
+			return
+		}
 		fmt.Println("Graceful Shutdown...")
 	},
 }
