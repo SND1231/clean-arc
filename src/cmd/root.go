@@ -44,8 +44,8 @@ var rootCmd = &cobra.Command{
 
 		ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGTERM, os.Interrupt, os.Kill)
 		defer stop()
-
 		<-ctx.Done()
+
 		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 		defer cancel()
 
